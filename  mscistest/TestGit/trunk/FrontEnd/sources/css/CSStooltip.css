@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* custom css tooltip George antoniou and Ilias butsikakis*/
+
+.CSStooltip{
+ 	display: inline;
+ 	position: relative;
+}
+.CSStooltip:hover:after{
+	background: #333;
+	background: rgba(0,0,0,.8);
+	border-radius: 5px;
+	bottom: 26px;
+	color: #fff;
+	content: attr(title);
+	left: 20%;
+	padding: 5px 15px;
+	position: absolute;
+	z-index: 98;
+	width: 220px;
+}
+		
+.CSStooltip:hover:before{
+  	border: solid;
+   	border-color: #333 transparent;
+   	border-width: 6px 6px 0 6px;
+   	bottom: 20px;
+   	content: "";
+   	left: 50%;
+   	position: absolute;
+   	z-index: 99;
+}
+
+.JStooltip{
+    position:absolute;
+	/*right:-3%;*/	
+	background-color:#d1d5da;
+	font-style:italic;
+	width:20%px;
+	height:20%px;
+	box-shadow: 0 0px 2px rgba(0, 0, 0, 0.5);
+	border: 5px solid #111;
+	border: 5px solid rgba(0, 0, 0, 0.5);
+	border-radius: 3px;;
+    display:none;	
+	z-index: +3;
+}
