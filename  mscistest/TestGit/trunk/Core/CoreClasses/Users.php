@@ -51,7 +51,7 @@ class Users {
         if($details!=null){
             $username=$details['username'];
             $salt = uniqid(mt_rand(), true);
-            $password=md5($details['password']);//.$salt);
+            $password=md5($details['password'].$salt);
             $name=$details['name'];
             $surname=$details['surname'];
             $phone=$details['phone'];
@@ -64,7 +64,7 @@ class Users {
                 $query="insert into user(username,password,email,salt,name,surname,phone,level,access) values ('$username','$password','$email','$salt','$name','$surname',$phone,0,0)";
                 $result=mysql_query($query) or $error=('Query failed: ' . mysql_error());
                 if($error==null){
-                    $Users['success']="User Added  ".print_r($details['username']);
+                    $Users['success']="User Added ";
                 }
                 else {
                     $Users['error']=$error;
@@ -117,6 +117,8 @@ class Users {
             $query="select * from user where username='$username'";
             $result=mysql_query($query) or $error=('Query failed: ' . mysql_error());
             if($error==null){
+                if($this->check_Username($username)==true){}
+                else{$user['error']="No user exists";}
                 $row=mysql_fetch_array($result)  ;
 
                 $user['UID']=$row['UID'];
@@ -158,8 +160,11 @@ class Users {
                 mysql_free_result($result);
                 $passwordNew=md5($password.$user['salt']);
                 $user['answer']=$this->check_Credentials($username,$passwordNew);
-                if($this->check_Credentials($username,$passwordNew)==true){
+                /*if($this->check_Credentials($username,$passwordNew)==true){
                     $answer= "true";
+                }*/
+                if($user['password']==$passwordNew){
+                    $answer="true";
                 }
                 //return $user;
             }else{

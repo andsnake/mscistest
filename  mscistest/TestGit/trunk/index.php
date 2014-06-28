@@ -74,7 +74,8 @@ session_start();
           <?php  $path_info = parse_path();
           //echo '<pre>'.print_r($path_info, true).'</pre>';
           //echo sacarXss("testeando javascript:alert('hola');");
-          get_page( $path_info);?>
+          ?>
+          <div id="page-content"><?php get_page( $path_info);?></div>
       <!-- START THE FEATURETTES -->
 
       <hr class="featurette-divider">
@@ -121,6 +122,7 @@ session_start();
     <script src="FrontEnd/sources/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo BD; ?>/FrontEnd/sources/js/bootstrapValidator.js"></script>
     <script type="text/javascript" src="<?php echo BD; ?>/FrontEnd/sources/js/loginValidator.js"></script>
+    <script type="text/javascript" src="<?php echo BD; ?>/FrontEnd/sources/js/registerValidator.js"></script>
     <script type="application/javascript">
 	function show (elem) {  
     	elem.style.display="block";
