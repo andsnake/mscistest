@@ -63,34 +63,23 @@ foreach($sorted as $category){
 
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Lorem Ipsum <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">2nd Level Sub-Menu 1</a>
+                    <?php
+                        if(isset($_SESSION['username'])){
+                    ?>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">User Menu <span class="caret"></span></a>
+
                                 <ul class="dropdown-menu">
-                                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">3rd Level Sub-Menu 1</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">3rd level link #1</a></li>
-                                            <li><a href="#">3rd level link #2</a></li>
-                                            <li><a href="#">3rd level link #3</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">3rd Level Sub-Menu 2</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">3rd level link #1</a></li>
-                                            <li><a href="#">3rd level link #2</a></li>
-                                            <li><a href="#">3rd level link #3</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="?page=logout">Logout</a></li>
+                                    <li><a href="#">User Options</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">2nd Level Sub-Menu 2</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">2rd level link #1</a></li>
-                                    <li><a href="#">2rd level link #2</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+
+
+                    <?php } else {?>
+                            <li class="menu-item "><a href="?page=register">Register</a></li>
+                            <li class="menu-item " ><a data-target="#checkout_modal" onclick="checkout_cart('false')" href="#checkout_modal">Login</a></li>
+                    <?php }?>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><form class="navbar-search navbar-form" method="get" action="">

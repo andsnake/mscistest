@@ -101,6 +101,21 @@ function checkout_cart(status){
     }
     else{
         if(status=="true"){
+            var dataString = "&page=checkout_cart";;
+            $.ajax({
+                type: "POST",
+                url: "FrontEnd/shopping_cart.php",
+                data: dataString,
+                beforeSend: function()
+                {
+                    //$('html, body').animate({scrollTop:0}, 'slow');
+                    //$("#response").html('<img src="loading.gif" align="absmiddle" alt="Loading..."> Loading...<br clear="all" /><br clear="all" />');
+                },
+                success: function(response)
+                {
+                    $("#checkout_contents").html(response);
+                }
+            });
             $('#checkout_modal').modal('show');
         }
     }

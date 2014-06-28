@@ -31,4 +31,8 @@
  * User: George
  * Date: 6/25/14
  * Time: 8:54 PM
- */ 
+ */
+/*for($i=0;$i<=5;$i++)
+    $cart[]=array("SKU"=>rand(),"quantity"=>rand());
+var_dump($cart);
+var_dump($_SESSION['cart']);*/

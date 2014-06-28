@@ -35,6 +35,11 @@ function clean($string) {
     //$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
     return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 }
+//------------------ END OF DATABASE CONNECTION --------------------------------------
+//------- DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING !!!! --------
+
+
+/*BELOW ARE SOME FUNCTIONS USED IN REGISTRATION,LOGIN AND GENERALLY EVERYWHERE YOU WANT TO CHECK IF USER IS LOGGED IN*/
 function check_login($var){
     $v="false";
     $uname=null;
@@ -46,6 +51,7 @@ function check_login($var){
     }else{
         $uname=$var;
     }
+    //call REST Service and get user data
     if($uname!=null){
         //$username=stripcslashes($_SESSION['username']);
         $username=stripcslashes($uname);
@@ -62,16 +68,18 @@ function check_login($var){
         }catch(Exception $e) {
             //echo $e->getMessage();
         }
-        if(isset($xml->error))
+        //if error tag exists then most probably user does not exist
+        if(isset($xml->error) ){
             $v="false";
-        else
+        }
+        else{
             $v="true";
-
+        }
     }
     return $v;
-
 }
 
+/* USED IN INDEX.PHP TO DECIDE WHICH PAGE SHOULD BE INCLUDED*/
 function parse_path() {
     if(isset( $_SERVER['REQUEST_URI'])){
         $path = $_SERVER['REQUEST_URI'];
@@ -107,22 +115,26 @@ function get_page($path_info){
     elseif($path_info=="logout"){
         include 'FrontEnd/logout.php';
     }
+    elseif($path_info=="checkout"){
+        include 'FrontEnd/checkout.php';
+    }
     else{
         include 'FrontEnd/front.php';
     }
-    /*switch($path_info) {
-        case 'category': include BD.'/FrontEnd/category.php';
-            break;
-        case 'users': include BD.'/FrontEnd/users.php';
-            break;
-        case 'news': include BD.'/FrontEnd/news.php';
-            break;
-        case 'products': include BD.'/FrontEnd/products.php';
-            break;
-        case null:
-            include 'FrontEnd/front.php'; break;
-    }*/
 }
 
+//NEEDED TO DEFINE ABSOLUTE PATH
 define('DR', $_SERVER['DOCUMENT_ROOT']);
 define('BD', str_replace(DR, '', dirname($_SERVER['SCRIPT_FILENAME'] . '/')));
+
+/* USED TO SANITIZE USER INPUT */
+function strip_Characters($var){
+    $string = preg_replace('/[^\p{L}\p{N}\s]/u', '', $var);
+    return $string;
+}
+
+function check_invalid_input($var){
+    if(!preg_match('/^[a-zA-Z\d]+$/', $var))
+        return false;
+    else return true;
+}

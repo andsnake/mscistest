@@ -66,7 +66,9 @@ function add_User(){
         if($err==null){
             $result=$users->add_User($details);
             if(check_Response($result)==true){
-                echo "<response><success>'User added'</success></response>";
+                echo "<response>
+                         <success>'User added'</success>
+                      </response>";
             }
             else{
                 $err=$result['error'];
@@ -133,14 +135,15 @@ function get_User($username){
                     echo"<user>";
                     echo"<UID>$user[UID]</UID>";
                     echo"<username>".$user['username']."</username>";
-                    //echo"<saltedpassword>".md5(htmlspecialchars($user['password']).$user['salt'])."</saltedpassword>";
-                    //echo"<saltedpassword>".md5($user['password'].$user['salt'])."</saltedpassword>";
-                    //echo"<password>$user[password]</password>";
-                    //echo"<salt>$user[salt]</salt>";
+                    echo"<saltedpassword>".md5(htmlspecialchars($user['password']).$user['salt'])."</saltedpassword>";
+                    echo"<saltedpassword>".md5($user['password'].$user['salt'])."</saltedpassword>";
+                    echo"<password>$user[password]</password>";
+                    echo"<salt>$user[salt]</salt>";
                     echo"<email>$user[email]</email>";
                     echo"<name>$user[name]</name>";
                     echo"<surname>$user[surname]</surname>";
                     echo"<phone>$user[phone]</phone>";
+                    echo"<level>$user[level]</level>";
                     echo"</user>";
                 }
                 else{
@@ -157,8 +160,11 @@ function check_if_exists($username,$password){
     global $users;
     $result= $users->get_User_Exists($username,$password);
     echo"<users>
-            <user>
-                <answer>".$result.
+            <user>";
+    if($result=="false"){
+        echo"<error>WTF?</error>";
+    }
+                echo"<answer>".$result.
                 "</answer>
             </user>
         </users>";
