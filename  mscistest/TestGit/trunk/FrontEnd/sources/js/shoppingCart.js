@@ -122,3 +122,22 @@ function checkout_cart(status){
 
 }
 
+function submit_cart(){
+    $.ajax({
+        type: "POST",
+        url: "FrontEnd/checkout.php",
+        data: $('#checkoutForm').serialize(),
+        success: function(msg){
+            $("#checkout_contents").html(msg)
+            /*if(msg.indexOf("welcome ") > -1){
+             location.reload();
+             }*/
+            //$("#checkout_modal").modal('show');
+        },
+        error: function(){
+            alert("We are sorry Something went wrong :(");
+        }
+    });
+    return false;
+}
+

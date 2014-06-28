@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-5 col-md-offset-3" style="vertical-align: 200%">
-                            <button name ="checkout_submit" type="submit" class="btn btn-primary">Order</button>
+                            <button name ="checkout_submit" type="submit" onsubmit="submit_cart()" class="btn btn-primary">Order</button>
                         </div>
                     </div>
                 </form>
