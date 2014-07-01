@@ -72,6 +72,11 @@ class Orders {
                 $Orders['success']="Order Completed " ;
                 $Orders['code']=$code;
                 //$Orders['error'].=", ".$result2['error'];
+                //update user level
+                if($this->calculate_User_level($UID)==true){
+                    $q="update user set level=1 where UID=$UID";
+                    mysql_query($q);
+                }
             }
             else{
                 $Orders['error'].=", ".$result2['error'];

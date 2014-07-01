@@ -82,8 +82,11 @@ foreach($sorted as $category){
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><form class="navbar-search navbar-form" method="get" action="">
-                            <input class="form-control" placeholder="Search" name="s" type="text">
+                    <li><form class="navbar-search navbar-form" method="get" action="index.php?page=search">
+                            <input class="form-control" placeholder="Search" name="item" type="text"><button>Search</button>
+                            <input hidden="hidden" name="page" value="search"/>
+                            <input hidden="hidden" name="mode" value="product"/>
+
                         </form>
                     </li>
                     <li>

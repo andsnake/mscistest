@@ -118,6 +118,9 @@ function get_page($path_info){
     elseif($path_info=="checkout"){
         include 'FrontEnd/checkout.php';
     }
+    elseif($path_info=="search"){
+        include 'FrontEnd/search.php';
+    }
     else{
         include 'FrontEnd/front.php';
     }

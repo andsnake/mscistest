@@ -61,7 +61,7 @@ $details['surname']="antoniou";
 $details['phone']=6947343012;
 $details['email']="antoniougeo#gmail.com";
 
-print_r( $users->add_User($details) );
+//print_r( $users->add_User($details) );
 $details['UID']="10";
 $salt = uniqid(mt_rand(), true);
 $details['password']="unicorn";
@@ -69,9 +69,9 @@ $details['name']="george";
 $details['surname']="antoniou";
 $details['phone']=6947343012;
 $details['email']="antoniougeo@gmail.com";
-print_r( $users->edit_User($details) );
-print_r( $users->get_User("andsnake") );
-print_r( $users->update_User_level("andsnake") );
+//print_r( $users->edit_User($details) );
+//print_r( $users->get_User("andsnake") );
+//print_r( $users->update_User_level("andsnake") );
 
 $test=['0'=>array("SKU"=>"123456789AAA","quantity"=>2),
         '1'=>array("SKU"=>"2234242wss23","quantity"=>2)];
@@ -100,3 +100,21 @@ foreach ( $cclArray as $k => $array ) {
 
 
 print_r($cclArray);
+
+include"CoreClasses/Recommenderr.php";
+$u=new \CoreClasses\Recommender(initConn());
+var_dump($u->set_Current_User("andsnake2"));
+//
+var_dump($u->set_Other_Users());
+echo"rankings :<br>";
+$u->calculate_rankings();
+var_dump($u->getOthers());
+echo"recomendations <br>";
+var_dump($u->getRecomendations());
+echo"errors test-------------------- <br>";
+/*var_dump*/($u->getError());
+echo "-------------------- <br>";
+//echo "users items <br>";
+//var_dump( $u->getUserA()->getProducts() );
+
+echo "-------------------- <br>";
