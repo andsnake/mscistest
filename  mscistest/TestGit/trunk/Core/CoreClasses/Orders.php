@@ -49,6 +49,7 @@ class Orders {
         $date_made=date("Y-m-d H:i:s");
         $date_due=date('Y-m-d H:i:s', strtotime("+3 days"));
         $total=$this->calculate_Total($orders,$UID);//apply discounts
+        $total=$this->encrypt($total);//apply encryption
         $code=uniqid();
         $add=false; $count=0;
         foreach($orders as $order){
@@ -63,8 +64,8 @@ class Orders {
 
         //mysql_insert_id();
         //$query="insert into `order`(date_made,date_due,UID,total,status) values ($date_made,$date_due,$UID,$total,'Collecting')";
-        $query="insert into  `order`(UID,total,date_made,date_due,status,code) values ($UID,$total,'$date_made','$$date_due',0,'$code')";
-        $result=mysql_query($query) or $error=('Query failed: ' . mysql_error());
+        $query="insert into  `order`(UID,total,date_made,date_due,status,code) values ($UID,'$total','$date_made','$$date_due',0,'$code')";
+        $result=mysql_query($query) or $error=('Query failed: ' . mysql_error()."  ".$query);
         if($error==null){
             $id=mysql_insert_id();
             $result2=$this->set_Order_Products($orders,$id);//
@@ -232,6 +233,15 @@ class Orders {
             return  $order;
         }
 
+    }
+    //decryption will be used only on UI
+    function encrypt($string){
+        $key = 'AESF#$%>13557SEEDg';
+        $plaintext=$string; //= 'string to be encrypted';
+
+        $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $plaintext, MCRYPT_MODE_CBC, md5(md5($key))));
+        return $encrypted;
+        // $decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($encrypted), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
     }
 
 } //end of class
