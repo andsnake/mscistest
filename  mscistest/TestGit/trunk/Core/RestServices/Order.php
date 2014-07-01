@@ -92,3 +92,21 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
     }
 }
+
+function encrypt($string){
+    $key = 'AESF#$%>13557SEEDg';
+    $plaintext=$string; //= 'string to be encrypted';
+
+    $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $plaintext, MCRYPT_MODE_CBC, md5(md5($key))));
+    return $encrypted;
+   // $decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($encrypted), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
+}
+
+function dencrypt($string){
+    $key = 'AESF#$%>13557SEEDg';
+    $ciphertext=$string; //= 'string to be dencrypted';
+
+    //$encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $plaintext, MCRYPT_MODE_CBC, md5(md5($key))));
+    $decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($ciphertext), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
+    return  $decrypted;
+}
