@@ -44,6 +44,7 @@ if(isset($_POST['checkout_submit'])){
 }
 if(isset($_GET['code'])){
     echo "<div class='alert alert-info'>Order Added!. Here is your Order Code:".$_GET['code']."</div>";
+    unset($_SESSION['cart']);
 }
 //var_dump($_GET);
 function get_User_ID($username){
@@ -66,3 +67,5 @@ function get_User_ID($username){
     }
     return $answer;
 }
+?>
+<script type="text/javascript">//clear_cart();</script>

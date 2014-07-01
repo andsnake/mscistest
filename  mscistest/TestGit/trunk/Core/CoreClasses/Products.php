@@ -374,5 +374,33 @@ class Products {
         }
     }
 
+    function search($product,$CATID){
+        if($CATID==null || $CATID==0){
+            $query="select * from product where name like '%".$product."%' ";
+        }
+        else{
+            $query="select * from product,products_categories where name like '%$product%' and products_categories.SKU=product.SKU and CATID=$CATID";
+        }
+        $error=null;
+        $result = mysql_query($query) or $error=('Query failed: ' . mysql_error());
+        $Products= array();
+        if($error==null){
+            /*get results and put them in an array*/
+            while($row=mysql_fetch_array($result)){
+                $Products[]=$row;
+            }
+            mysql_free_result($result);
+            /* array usage>> $result_set[0]['column_name']; */
+            //$Products["q"]=$query;
+            return $Products;
+        }
+        else{
+            $Products['error']=$error;
+            return $Products;
+        }
+
+
+    }
+
 
 } 
