@@ -138,14 +138,15 @@ session_start();
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>© 2014 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
         <?php
-        $key = 'AESF#$%>13557SEEDg';
+        //testing encyption
+        /*$key = 'AESF#$%>13557SEEDg';
         $string = 5000.055;
 
         $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, md5(md5($key))));
         $decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($encrypted), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
 
         var_dump($encrypted);
-        var_dump($decrypted);
+        var_dump($decrypted);*/
         ?>
 
       </footer>
