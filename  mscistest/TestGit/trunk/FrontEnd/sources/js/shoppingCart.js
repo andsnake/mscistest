@@ -141,3 +141,86 @@ function submit_cart(){
     return false;
 }
 
+/*function show_Recomendations(user){
+    var dataString = "username="+user;
+    alert(user);
+    $.ajax({
+        type: "POST",
+        url: "FrontEnd/recommend.php",
+        data: dataString,
+        beforeSend: function()
+        {
+            //$('html, body').animate({scrollTop:0}, 'slow');
+            $("#recommendations").html('<img src="loading.gif" align="absmiddle" alt="Loading..."> Loading...<br clear="all" /><br clear="all" />');
+        },
+        success: function(response)
+        {
+            $("#recommendations").html(response);
+        }
+    });
+}*/
+
+function update_cart_plus(item_SKU,item_price,status,item_name,quantity)
+{
+    /*$("div.checkout_user_info").hide();
+     $("div#checkout_user_info").hide();
+     $("div.shopping_cart_status").show();
+     $("div#shopping_cart_status").show();*/
+    //alert(quantity);
+    if(quantity <=0 || isNaN(quantity)==true){
+        //remove_from_cart(item_SKU);
+        alert("Invalid Quantity"+ quantity);
+    }
+    else{
+        var dataString = "item_SKU=" + item_SKU + "&item_price=" + item_price + "&page=update_cart_plus"+"&item_name="+item_name +"&quantity="+quantity;
+        $.ajax({
+            type: "POST",
+            url: "FrontEnd/shopping_cart.php",
+            data: dataString,
+            beforeSend: function()
+            {
+                //$('html, body').animate({scrollTop:0}, 'slow');
+                $("#response").html('<img src="loading.gif" align="absmiddle" alt="Loading..."> Loading...<br clear="all" /><br clear="all" />');
+            },
+            success: function(response)
+            {
+                $("#response").html(response);
+            }
+        });
+    }
+
+
+
+}
+function update_cart_minus(item_SKU,item_price,status,item_name,quantity)
+{
+    /*$("div.checkout_user_info").hide();
+     $("div#checkout_user_info").hide();
+     $("div.shopping_cart_status").show();
+     $("div#shopping_cart_status").show();*/
+    //alert(quantity);
+    if(quantity <0 || isNaN(quantity)==true){
+        //remove_from_cart(item_SKU);
+        alert("Invalid Quantity"+ quantity);
+    }
+    else{
+        var dataString = "item_SKU=" + item_SKU + "&item_price=" + item_price + "&page=update_cart_minus"+"&item_name="+item_name +"&quantity="+quantity;
+        $.ajax({
+            type: "POST",
+            url: "FrontEnd/shopping_cart.php",
+            data: dataString,
+            beforeSend: function()
+            {
+                //$('html, body').animate({scrollTop:0}, 'slow');
+                $("#response").html('<img src="loading.gif" align="absmiddle" alt="Loading..."> Loading...<br clear="all" /><br clear="all" />');
+            },
+            success: function(response)
+            {
+                $("#response").html(response);
+            }
+        });
+    }
+
+
+
+}

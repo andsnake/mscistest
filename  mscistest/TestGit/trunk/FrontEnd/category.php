@@ -27,7 +27,7 @@ if(isset($_GET['category'])){
         echo "<div><h3>Query Results</h3></div><hr>";
         foreach ($xml->product as $product) {
             echo'<div class="col-lg-4">
-         <img class="img-circle"  data-src="holder.js/50x50" alt="50x50" data-toggle="tooltip" data-placement="left" src="FrontEnd/sources/img/figure1.jpg" style="width: 100px; height: 100px;" title="'.htmlspecialchars($product->description).'"><h3>'.htmlspecialchars($product->name).'</h3><h4>'.htmlspecialchars($product->price).' &#8364;</h4> <button type="button" class="btn btn-success btn-xs" onClick="add_to_cart('."'".strip_tags($product->SKU)."','".strip_tags($product->price)."','add',"."'".strip_tags($product->name)."','".null."'".')"><span class="glyphicon glyphicon-shopping-cart"></span> Add</button>
+         <img class="img-circle"  data-src="holder.js/50x50" alt="50x50" data-toggle="tooltip" data-placement="left" src="uploads/'.$product->img.'" style="width: 100px; height: 100px;" title="'.htmlspecialchars($product->description).'"><h3>'.htmlspecialchars($product->name).'</h3><h4>'.htmlspecialchars($product->price).' &#8364;</h4> <button type="button" class="btn btn-success btn-xs" onClick="add_to_cart('."'".strip_tags($product->SKU)."','".strip_tags($product->price)."','add',"."'".strip_tags($product->name)."','".null."'".')"><span class="glyphicon glyphicon-shopping-cart"></span> Add</button>
 
         </div><!-- /.col-lg-4 -->';
             //echo "<tr> <td> " . htmlspecialchars($product->name) . "</td> "." </td></tr>";

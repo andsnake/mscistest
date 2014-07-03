@@ -95,6 +95,49 @@ if((isset($_POST['page']) && $_POST['page']=="checkout_cart")){
     get_Mini_Cart();
 }
 
+if((isset($_POST['page']) && $_POST['page']=="update_cart_plus")){
+    $SKU=$_POST['item_SKU'];
+    $name=$_POST['item_name'];
+    $q=$_POST['quantity'];
+    $price=$_POST['item_price'];
+
+    foreach($_SESSION['cart'] as $p=>$array){
+        if($array['SKU']==$SKU){
+            //$_SESSION['cart'] [$p]['quantity']=$q++;
+            $q=$array['quantity']+1;
+            //unset($_SESSION['cart'] [$p]);
+            $_SESSION['cart'][$p]['quantity']=$_SESSION['cart'][$p]['quantity']+1;
+            $insert=false;
+            break;
+        }
+    }
+    print_Cart();
+}
+
+if((isset($_POST['page']) && $_POST['page']=="update_cart_minus")){
+    $SKU=$_POST['item_SKU'];
+    $name=$_POST['item_name'];
+    //$q=$_GET['quantity'];
+    $price=$_POST['item_price'];
+
+    foreach($_SESSION['cart'] as $p=>$array){
+        if($array['SKU']==$SKU){
+            //$_SESSION['cart'] [$p]['quantity']=$q++;
+            $q=$array['quantity']+1;
+            //unset($_SESSION['cart'] [$p]);
+            $_SESSION['cart'][$p]['quantity']=$_SESSION['cart'][$p]['quantity']-1;
+            if($_SESSION['cart'][$p]['quantity']<=0){
+                unset($_SESSION['cart'] [$p]);
+
+            }
+            $insert=false;
+            break;
+        }
+    }
+    print_Cart();
+}
+
+
 function print_Cart(){
     //var_dump($_SESSION);
     if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
@@ -119,12 +162,15 @@ function print_Cart(){
         $total=0;
         $discount=false;
         foreach($_SESSION['cart'] as $cart){
+            $img=get_Item($cart['SKU']);
             echo '<tr>
 				<td class=""><input value="option1" id="optionsCheckbox"  onchange="remove_from_cart('."'".$cart["SKU"]."'".')" type="checkbox"></td>
-				<td class="muted center_text"><a href="/product/'.$cart["SKU"].'"><img src="css/images/macbook-pro.jpg"></a></td>
+				<td class="muted center_text"><a href="/product/'.$cart["SKU"].'"><img class="img-circle"  data-src="holder.js/50x50" alt="50x50" data-toggle="tooltip" data-placement="left" src="uploads/'.$img['img'].'" style="width: 60px; height: 50px;" title="'.$img['description'].'"></a></td>
 				<td>'.$cart["name"].'</td>
 				<td>'.$cart["SKU"].'</td>
-				<td><input placeholder="'.$cart["quantity"].'" class="input-mini" type="text"></td>
+				<td><input size="3" disabled placeholder="'.$cart["quantity"].'" class="input-mini" type="text" onchange="update_cart('."'".$cart["SKU"]."','".$cart["price"]."','add',"."'".$cart["name"]."',this.value".')">
+				<button type="button" class="btn btn-success btn-xs" onClick="update_cart_plus('."'".$cart["SKU"]."','".$cart["price"]."','add',"."'".$cart["name"]."',1".')"><span class="glyphicon glyphicon-plus"></span> </button>
+				    <button type="button" class="btn btn-danger btn-xs" onClick="update_cart_minus('."'".$cart["SKU"]."','".$cart["price"]."','add',"."'".$cart["name"]."',1".')"><span class="glyphicon glyphicon-minus"></span> </button></td>
 				<td>€'.$cart["price"].'</td>
 				<td>€'.$cart["price"]*$cart["quantity"].'</td>
 			  </tr>	';
@@ -234,5 +280,25 @@ function get_Mini_Cart(){
 
     }
 
+}
+
+function get_Item($SKU){
+    $url = 'http://'.HOST.'/'.ROOT.'/Core/RestServices/Product.php/product/get/'.$SKU;
+    $answer="false";
+    $client = curl_init($url);
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
+    $response = curl_exec($client);
+    curl_close($client);
+    $xml = simplexml_load_string($response);
+    $arr=null;
+    // var_dump($xml);
+
+    $img=null;
+    foreach ($xml->product as $product) {
+       $img['img']=$product->img;
+        $img['description']=$product->description;
+        //echo "<tr> <td> " . htmlspecialchars($product->name) . "</td> "." </td></tr>";
+    }
+    return $img;
 }
 

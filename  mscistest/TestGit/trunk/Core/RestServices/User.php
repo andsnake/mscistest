@@ -95,6 +95,7 @@ function edit_User(){
         $details["name"]=$user->name;
         $details["surname"]=$user->surname;
         $details["phone"]=$user->phone;
+        $details["salt"]=$user->salt;
         if(empty($details['username']) || empty($details['password']) || empty($details['email'])){
             $err="Required values were empty";
         }
