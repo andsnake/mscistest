@@ -92,7 +92,7 @@ function parse_path() {
         $path_params=$_GET['page'];
     }
     else $path_params=null;
-    $path_params=strip_tags(preg_replace("/[^[:alnum:][:punct:]]/","",htmlspecialchars($path_params)));
+    $path_params=strip_tags(preg_replace("/[^[:alnum:][:punct:]]/","",@htmlspecialchars($path_params)));
     $path_params=filter_var($path_params, FILTER_SANITIZE_STRING);
     $path_params=sacarXss($path_params);
     return $path_params;

@@ -15,7 +15,33 @@ session_start();
     <!-- <link href="<?php echo BD; ?>/FrontEnd/sources/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="<?php echo BD; ?>/FrontEnd/sources/css/bootstrap.css"/>
     <link rel="stylesheet" href="<?php echo BD; ?>/FrontEnd/sources/css/bootstrapValidator.min.css"/>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+
+      <style>
+          .scroll-pane { overflow: auto; width: 99%; float:left; }
+          .scroll-content { width: 2000px; height:500px ; float: left; }
+          .scroll-content-item { width: 150px; height: 100px; float: left; margin: 10px; font-size: 3em;/* line-height: 96px; text-align: center;*/ }
+          .scroll-bar-wrap { clear: left; padding: 0 4px 0 2px; margin: 0 -1px -1px -1px; }
+          .scroll-bar-wrap .ui-slider { background: none; border:0; height: 2em; margin: 0 auto; }
+          .scroll-bar-wrap .ui-handle-helper-parent { position: relative; width: 100%; height: 100%; margin: 0 auto; }
+          .scroll-bar-wrap .ui-slider-handle { top:.2em; height: 1.5em; }
+          .scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
+          .ui-widget textarea, .ui-widget button {
+              font-family: Verdana,Arial,sans-serif;
+              font-size: 1.5rem;
+          }
+          .ui-widget-header {
+              border: 1px solid #AAA;
+              background: url('') repeat-x scroll 50% 50% #CCC;
+              color: #222;
+              font-weight: bold;
+          }
+      </style>
     <!--link href="FrontEnd/sources/css/CSStooltip.css" rel="stylesheet" -->
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,7 +85,7 @@ session_start();
             ?>
 
 
-        <div id="response" align="center"></div>
+            <div id="response" align="center"></div>
             <!-- <div class="col-sm-3 col-md-3 pull-right breadcrumb alert-info">
              <!-- <form class="navbar-form" role="search">
                  <div class="input-group">
@@ -71,6 +97,13 @@ session_start();
                  </form>
                  </div>-->
 	  <div id="Content">
+          <?php if(isset($_SESSION['username']) && $_SESSION['username']!=null){?>
+          <script>
+              $( document ).ready(function() {
+                  show_Recomendations('<?= $_SESSION['username'] ?>');
+              });
+          </script>
+          <?php } ?>
           <?php  $path_info = parse_path();
           //echo '<pre>'.print_r($path_info, true).'</pre>';
           //echo sacarXss("testeando javascript:alert('hola');");
@@ -81,6 +114,7 @@ session_start();
       <hr class="featurette-divider">
 
       <div class="row featurette">
+          <div class="row"><div id="recommendations" ></div></div>
         <div class="col-md-7">
           <h2 class="featurette-heading">Το πρώτο μας Διαφημιστικό banner. <span class="text-muted">It will (not) blow your mind.</span></h2>          
           <div class="centered">
@@ -125,8 +159,7 @@ session_start();
 
 
     
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="FrontEnd/sources/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo BD; ?>/FrontEnd/sources/js/bootstrapValidator.js"></script>
@@ -139,10 +172,103 @@ session_start();
 	function hide (elem) { 
 		elem.style.display=""; 
 	}
+    //enable tooltips
 	$(document).ready(function (){
     $('[data-toggle="tooltip"]').tooltip({'placement': 'right'});
   });
+    function show_Recomendations(user){
+        var dataString = "username="+user;
+        $.ajax({
+            type: "POST",
+            url: "FrontEnd/recommend.php",
+            data: dataString,
+            beforeSend: function()
+            {
+                //$('html, body').animate({scrollTop:0}, 'slow');
+                $("#recommendations").html('<img src="loading.gif" align="absmiddle" alt="Loading..."> Loading...<br clear="all" /><br clear="all" />');
+            },
+            success: function(response)
+            {
+                $("#recommendations").html(response);
+                //alert(response);
+            },
+            error: function(xhr, textStatus, errorThrown){
+                //alert('request failed'+errorThrown);
+            }
+        });
+    }
+
+
+
 </script>
+
+  <script>
+      //Recommender Slider
+      $(function() {
+//scrollpane parts
+          var scrollPane = $( ".scroll-pane" ),
+              scrollContent = $( ".scroll-content" );
+//build slider
+          var scrollbar = $( ".scroll-bar" ).slider({
+              slide: function( event, ui ) {
+                  if ( scrollContent.width() > scrollPane.width() ) {
+                      scrollContent.css( "margin-left", Math.round(
+                          ui.value / 100 * ( scrollPane.width() - scrollContent.width() )
+                      ) + "px" );
+                  } else {
+                      scrollContent.css( "margin-left", 0 );
+                  }
+              }
+          });
+//append icon to handle
+          var handleHelper = scrollbar.find( ".ui-slider-handle" )
+              .mousedown(function() {
+                  scrollbar.width( handleHelper.width() );
+              })
+              .mouseup(function() {
+                  scrollbar.width( "100%" );
+              })
+              .append( "<span class='ui-icon ui-icon-grip-dotted-vertical'></span>" )
+              .wrap( "<div class='ui-handle-helper-parent'></div>" ).parent();
+//change overflow to hidden now that slider handles the scrolling
+          scrollPane.css( "overflow", "hidden" );
+//size scrollbar and handle proportionally to scroll distance
+          function sizeScrollbar() {
+              var remainder = scrollContent.width() - scrollPane.width();
+              var proportion = remainder / scrollContent.width();
+              var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
+              scrollbar.find( ".ui-slider-handle" ).css({
+                  width: handleSize,
+                  "margin-left": -handleSize / 2
+              });
+              handleHelper.width( "" ).width( scrollbar.width() - handleSize );
+          }
+//reset slider value based on scroll content position
+          function resetValue() {
+              var remainder = scrollPane.width() - scrollContent.width();
+              var leftVal = scrollContent.css( "margin-left" ) === "auto" ? 0 :
+                  parseInt( scrollContent.css( "margin-left" ) );
+              var percentage = Math.round( leftVal / remainder * 100 );
+              scrollbar.slider( "value", percentage );
+          }
+//if the slider is 100% and window gets larger, reveal content
+          function reflowContent() {
+              var showing = scrollContent.width() + parseInt( scrollContent.css( "margin-left" ), 10 );
+              var gap = scrollPane.width() - showing;
+              if ( gap > 0 ) {
+                  scrollContent.css( "margin-left", parseInt( scrollContent.css( "margin-left" ), 10 ) + gap );
+              }
+          }
+//change handle position on window resize
+          $( window ).resize(function() {
+              resetValue();
+              sizeScrollbar();
+              reflowContent();
+          });
+//init scrollbar size
+          setTimeout( sizeScrollbar, 10 );//safari wants a timeout
+      });
+  </script>
 
     
   </body>

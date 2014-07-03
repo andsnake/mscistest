@@ -95,6 +95,7 @@ function get_Category_Products($catid){
         echo"<price>$product[price]</price>";
         echo"<stock>$product[stock]</stock>";
         echo"<name>$product[name]</name>";
+        echo"<img>$product[img]</img>";
         echo"</product>";
     }
     echo "</products>";
@@ -107,9 +108,11 @@ function get_Product($SKU){
         if($product['SKU']!=null){
             echo"<product>";
             echo"<SKU>$product[SKU]</SKU>";
+            echo"<name>$product[name]</name>";
             echo"<description>$product[description]</description>";
             echo"<price>$product[price]</price>";
             echo"<stock>$product[stock]</stock>";
+            echo"<img>$product[img]</img>";
             echo"</product>";
         }
         else{
@@ -202,6 +205,7 @@ function get_All_Products(){
         echo"<description>$product[description]</description>";
         echo"<price>$product[price]</price>";
         echo"<stock>$product[stock]</stock>";
+        echo"<img>$product[img]</img>";
         echo"</product>";
     }
     echo "</products>";
@@ -232,6 +236,7 @@ function get_Latest_Products(){
         echo"<description>$product[description]</description>";
         echo"<price>$product[price]</price>";
         echo"<stock>$product[stock]</stock>";
+        echo"<img>$product[img]</img>";
         echo"</product>";
     }
     echo "</products>";
@@ -248,6 +253,7 @@ function search($name,$CATID){
         echo"<description>$product[description]</description>";
         echo"<price>$product[price]</price>";
         echo"<stock>$product[stock]</stock>";
+        echo"<img>$product[img]</img>";
         echo"</product>";
 
     }

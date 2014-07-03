@@ -70,7 +70,7 @@ foreach($sorted as $category){
 
                                 <ul class="dropdown-menu">
                                     <li><a href="?page=logout">Logout</a></li>
-                                    <li><a href="#">User Options</a></li>
+                                    <li><a href="?page=user">User Options</a></li>
                                 </ul>
                             </li>
 

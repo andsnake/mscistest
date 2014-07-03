@@ -79,7 +79,7 @@ class Users {
         if($details!=null){
             $id=$details['UID'];
             $username=$details['username'];
-            $salt = uniqid(mt_rand(), true);
+            $salt = $details['salt'];//uniqid(mt_rand(), true);
             $password=md5($details['password'].$salt);
             $name=$details['name'];
             $surname=$details['surname'];

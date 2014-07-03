@@ -101,16 +101,19 @@ foreach ( $cclArray as $k => $array ) {
 
 print_r($cclArray);
 
-include"CoreClasses/Recommenderr.php";
+include "CoreClasses/Recommender.php";
 $u=new \CoreClasses\Recommender(initConn());
-var_dump($u->set_Current_User("andsnake2"));
+var_dump($u->set_Current_User("andsnake3"));
 //
 var_dump($u->set_Other_Users());
 echo"rankings :<br>";
 $u->calculate_rankings();
 var_dump($u->getOthers());
 echo"recomendations <br>";
-var_dump($u->getRecomendations());
+$p=($u->getRecomendations());
+foreach($p as $i){
+    echo "$i <br>";
+}
 echo"errors test-------------------- <br>";
 /*var_dump*/($u->getError());
 echo "-------------------- <br>";

@@ -46,7 +46,7 @@ $form='<h2 class="form-signup-heading">Please fill in your details</h2>
         </div>
         <div class="form-group">
             <div class="col-md-5 col-md-offset-3">
-                <button name ="login_submit" type="submit" class="btn btn-primary">Login</button>
+                <button name ="login_submit" type="submit" class="btn btn-primary">Register</button>
             </div>
         </div>
     </form>';
@@ -67,17 +67,19 @@ if(isset($_POST['username'])&& isset($_POST['password']) && ($_POST['username']!
         $var= filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
         if($var==false){
             //we just caught a malicious motherfucker!
+            $errors['email']=$var;
             $alert=true;
         }
         else{
             $email=filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+            $errors['email2']=$email;
         }
-        if(filter_var($_POST['phone'], FILTER_VALIDATE_INT)){
+        /*if(filter_var($_POST['phone'], FILTER_VALIDATE_INT)){
             $phone=filter_var($_POST['phone'], FILTER_SANITIZE_NUMBER_INT);
         }
         else{
             $alert=true;
-        }
+        }*/$phone=filter_var($_POST['phone'], FILTER_SANITIZE_NUMBER_INT);
         if(check_invalid_input(strip_Characters($_POST['username'])) && check_invalid_input(strip_Characters($_POST['password'])) && check_invalid_input(strip_Characters($_POST['name'])) && check_invalid_input(strip_Characters($_POST['surname']))){
             $username=strip_Characters($_POST['username']);
             $password=strip_Characters($_POST['password']);
@@ -95,7 +97,7 @@ if(isset($_POST['username'])&& isset($_POST['password']) && ($_POST['username']!
         else{
             echo "    <div class='alert alert-warning'>
     <strong>OOOPS!</strong> We are sorry, something seemed not to be right with your request.. :(
-    </div>";
+    </div>"; var_dump($errors);
             //echo $form;
         }
     }
