@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <script type="text/javascript" src="validate.js"></script>
+    <meta name="Description" content="Product administration, product, admin." />
+    <meta name="Keywords" content="your, keywords" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="Distribution" content="Global" />
+    <meta name="Robots" content="index,follow" />
+    <link rel="stylesheet" href="images/Azulmedia.css" type="text/css" />           //exo varethei na to grafo alla edo einai to css den paizo me ti tixi mou
+    <title>Magazi Management v0.1</title>
+</head>
+<body>
+<!-- wrap starts here -->
+<div id="wrap">
+
+    <div id="header">
+        <h1 id="logo">Client<span class="gray">Management</span></h1>
+        <h2 id="slogan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Management of the database. . .  &nbsp;&nbsp;&nbsp;   efficiently!!</h2>
+
+        <!-- Menu Tabs -->
+        <div id="menu">
+            <ul>
+                <li id="current"><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- content-wrap starts here -->
+    <div id="content-wrap">
+        <div id="sidebar" >
+            <h1 class="clear">Control Panel</h1>
+            <ul class="sidemenu">
+                <li><a href="insert.html">Insert</a></li>
+                <li><a href="delete.html">Delete</a></li>
+                <li><a href="update.html">Update</a></li>
+            </ul>
+            <h1>Display Panel</h1>
+            <ul class="sidemenu">
+                <li><a href="display.html">Display products</a></li>
+            </ul>
+        </div>
+        <div id="main">
+            <a name="TemplateInfo"></a>
+            <a name="SampleTags"></a>
+            <div class="box">
+                <h3>Delete a client entry</h3>
+                <form  name="form" action="delete.php" onsubmit="javascript:return ValidateForm(this)">
+                    <p>
+                        <label>Code</label>
+                        <input name="code" type="text" size="12" />
+                        <br />
+                        <input class="button" type="submit" />
+                    </p>
+                </form>
+                <br />
+            </div>
+            <p><p><p>
+        </div>
+        <br />
+        <!-- content-wrap ends here -->
+    </div>
+    <!-- wrap ends here -->
+</div>
+
+<!-- footer starts here -->
+<div id="footer-wrap">
+    <div class="footer-left">
+        <p class="align-left">
+            &copy; 2014 <strong>Ant&Boutsi Corp.</strong>
+        </p>
+    </div>
+</div>
+<!-- footer ends here -->
+
+</body>
+</html>
