@@ -145,6 +145,7 @@ function get_User($username){
                     echo"<surname>$user[surname]</surname>";
                     echo"<phone>$user[phone]</phone>";
                     echo"<level>$user[level]</level>";
+                    echo"<access>$user[level]</access>";
                     echo"</user>";
                 }
                 else{
