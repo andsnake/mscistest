@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+
+#banners
+  { position: absolute;
+    top: 10px; /* top coordinate */
+    right: 10px; /* puts banners in the top right corner */
+  }
+/*sers of graphical browsers do not really need to see the header as the images are self explanatory. Also, the default border around images inside links is usually removed. And we want to make sure that there are no margins and padding that can affect*/ presentation:
+#banners h4
+  { display: none;
+  }
+
+#banners img
+  { border: none;
+  }
+
+#banners ul, #banners li, #banners a, #banners img
+  { margin: 0;
+    padding: 0;
+  }
+/*Another reasonable assumption is that all the banner images are of the same size. For illustration purposes let's say 200px wide by 80px high. We can make the height of the banners list the same as the images and setting the overflow to hidden will cause only the first banner visible as the default presentation of the page.*/
+#banners ul
+  { display: block;
+    height: 80px;
+    overflow: hidden;
+  }
+
+#banners li
+  { display: block;
+    list-item-style: none;
+  }

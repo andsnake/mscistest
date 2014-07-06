@@ -1,11 +1,11 @@
-<?php 
+<?php
 include "Core/config.php";
 session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">    
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Project eShop</title>
 	<!-- Include External non-boostrap related js -->
@@ -116,12 +116,12 @@ session_start();
       <div class="row featurette">
           <div class="row"><div id="recommendations" ></div></div>
         <div class="col-md-7">
-          <h2 class="featurette-heading">Το πρώτο μας Διαφημιστικό banner. <span class="text-muted">It will (not) blow your mind.</span></h2>          
+          <h2 class="featurette-heading">?? ????? ??? ???????????? banner. <span class="text-muted">It will (not) blow your mind.</span></h2>
           <div class="centered">
         <!--layer for the banner rotator-->
-        
+
         <div id="placeholderlayer"></div><div id="placeholderdiv"></div>
-     </div>          
+     </div>
         </div>
       </div>
 
@@ -159,7 +159,7 @@ session_start();
     <?php include("FrontEnd/action_modal.php"); ?>
 
 
-    
+
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="FrontEnd/sources/js/bootstrap.min.js"></script>
@@ -167,11 +167,11 @@ session_start();
     <script type="text/javascript" src="<?php echo BD; ?>/FrontEnd/sources/js/loginValidator.js"></script>
     <script type="text/javascript" src="<?php echo BD; ?>/FrontEnd/sources/js/registerValidator.js"></script>
     <script type="application/javascript">
-	function show (elem) {  
+	function show (elem) {
     	elem.style.display="block";
 	}
-	function hide (elem) { 
-		elem.style.display=""; 
+	function hide (elem) {
+		elem.style.display="";
 	}
     //enable tooltips
 	$(document).ready(function (){
@@ -271,6 +271,6 @@ session_start();
       });
   </script>
 
-    
+
   </body>
 </html>
