@@ -264,6 +264,26 @@ function search($name,$CATID){
     //var_dump($array);
     //echo "    ".$name;
 }
+function searchSKU($SKU){
+    global $products;
+    $array=$products->search_SKU($SKU);
+    echo"<products>";
+    foreach($array as $product){
+        echo"<product>";
+        echo"<SKU>$product[SKU]</SKU>";
+        echo"<name>$product[name]</name>";
+        echo"<description>$product[description]</description>";
+        echo"<price>$product[price]</price>";
+        echo"<stock>$product[stock]</stock>";
+        echo"<img>$product[img]</img>";
+        echo"</product>";
+
+    }
+    echo "</products>";
+    //debugging
+    //var_dump($array);
+    //echo "    ".$name;
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if ($path_params[1] != null && $path_params[2] != null ){
@@ -287,6 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'GET'){
+   //Print_r($path_params);
         if ($path_params[1] != null){
             if($path_params[2] != null && $path_params[3]!=null){
                 if($path_params[2]=="category"){
@@ -294,6 +315,9 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET'){
                 }
                 elseif($path_params[1]=="search"){
                     search($path_params[2],$path_params[3]);
+                }
+                elseif($path_params[1]=="searchSKU"){
+                    searchSKU($path_params[2]);
                 }
                 else {
                     get_Product($path_params[3]); //done

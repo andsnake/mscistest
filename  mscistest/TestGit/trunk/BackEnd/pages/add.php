@@ -8,7 +8,7 @@
  */
 
 if(!isset($_GET['submit'])){
-    $SKU=uniqid('SKU_');
+    $SKU=uniqid('SKU');
     ?>
     <script type="text/javascript" src="sources/validate.min.js"></script>
     <form name="addForm" id="addForm" class="form-horizontal" method="get" action="index.php?action=add" onsubmit="return validate()">
@@ -96,7 +96,7 @@ if(!isset($_GET['submit'])){
         </fieldset>
     </form>
     <script type="text/javascript">
-
+        $("select").imagepicker()//enable picker
         /*
          * Check that fields in form are completed
          */

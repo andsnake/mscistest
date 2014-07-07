@@ -138,7 +138,7 @@ if(isset($_GET['item'])){
         </fieldset>
     </form>
     <script type="text/javascript">
-
+        $("select").imagepicker()//enable picker
         /*
          * Check that fields in form are completed
          */
@@ -357,8 +357,8 @@ function update($SKU,$name,$price,$description,$img,$cat,$stock){
     else{
         //echo var_dump($xml);
         echo "    <div class='alert alert-info'>
-<strong>PRoduct Added :)</strong> <pre> You can now edit or delete it! Product SKU: $SKU</pre>
+<strong>Product Edited :)</strong> <pre> You can now edit or delete it! Product SKU: $SKU</pre>
 </div>";
-    }var_dump($response);
+    }//var_dump($response);
 
 }
