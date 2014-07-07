@@ -26,7 +26,7 @@ try{
 }
 foreach ($xml->product as $product) {
     echo'<div class="col-lg-4">
-         <img class="img-circle"  data-src="holder.js/50x50" alt="50x50" data-toggle="tooltip" data-placement="left" src="../uploads/'.htmlspecialchars($product->img).'" style="width: 100px; height: 100px;" title="'.htmlspecialchars($product->description).'"><h3>'.htmlspecialchars($product->name).'</h3><h4>'.htmlspecialchars($product->price).' &#8364;</h4> <button type="button" class="btn btn-success btn-xs" onClick="add_to_cart('."'".strip_tags($product->SKU)."','".strip_tags($product->price)."','add',"."'".strip_tags($product->name)."','null'".')"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+         <img class="img-circle"  data-src="holder.js/50x50" alt="50x50" data-toggle="tooltip" data-placement="left" src="../uploads/'.htmlspecialchars($product->img).'" style="width: 100px; height: 100px;" title="'.htmlspecialchars($product->description).'"><h3>'.htmlspecialchars($product->name).'</h3><h4>'.htmlspecialchars($product->price).' &#8364;</h4> <a href="index.php?action=edit&item='.strip_tags($product->SKU).'" type="button" class="btn btn-success btn-xs" )"><span class="glyphicon glyphicon-edit"></span> Edit</a>
          <a href="index.php?action=delete&item='.strip_tags($product->SKU).'" type="button" class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-delete"></span> Delete</a>
 
         </div><!-- /.col-lg-4 -->';

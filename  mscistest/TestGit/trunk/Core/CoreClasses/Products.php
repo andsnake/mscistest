@@ -96,7 +96,7 @@ class Products {
     function add_Product($details){
         $error=null;
         if($details!==null){
-            $query="insert into Product(SKU,description,price,stock,date_added,name) values ('".$details["SKU"]."','".$details["description"]."','".$details["price"]."','".$details["stock"]."',NOW()),'".$details["name"]."'";
+            $query="insert into Product(SKU,description,price,stock,date_added,name,img) values ('".$details["SKU"]."','".$details["description"]."','".$details["price"]."','".$details["stock"]."',NOW(),'".$details["name"]."','".$details["img"]."')";
             $result = mysql_query($query) or $error=('Query failed: ' . mysql_error());
             $Products= array();
 
@@ -114,7 +114,7 @@ class Products {
                 return $Products;
             }
             else{
-                $Products["error"]=$error;
+                $Products["error"]=$error."    ".$query;
                 return $Products;
             }
 
@@ -190,7 +190,7 @@ class Products {
         $error=null;
         $Products=array();
         if($SKU!==null){
-            $query="update product set description='".$details['description']."', price=".$details['price'].",stock= ".$details['stock']." where SKU='".$SKU."',name='".$details["name"]."'";
+            $query="update product set name='".$details["name"]."', img='".$details['img']."', description='".$details['description']."', price=".$details['price'].",stock= ".$details['stock']." where SKU='".$SKU."'";
             $result = mysql_query($query) or $error=('Query failed: ' . mysql_error());
             if($result){
                 $go=true;
@@ -216,8 +216,8 @@ class Products {
                 }
             }
             else {
-                mysql_free_result($result);
-                $Products["error"]=$error;
+                //mysql_free_result($result);
+                $Products["error"]=$error."   ".$query;
                 return $Products;
             }
         }

@@ -32,8 +32,18 @@ $menu=false;
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <link rel="stylesheet" href="../FrontEnd/sources/css/bootstrapValidator.min.css"/>
-    <script type="text/javascript" src="../FrontEnd/sources/js/bootstrapValidator.js"></script>
+    <link rel="stylesheet" href="sources/js/imagepicker/image-picker.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="sources/js/bootstrapValidator.js"></script>
+
+    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     <![endif]-->
+    <style type="text/css">
+        .thumbnails li img{
+            width: 150px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -89,7 +99,7 @@ $menu=false;
 
                 <!-- Cart End -->
                 <a href="#" class="list-group-item active">Options</a>
-                <a href="#" class="list-group-item">Add Item</a>
+                <a href="index.php?action=add" class="list-group-item">Add Item</a>
                 <a href="index.php?action=search" class="list-group-item">Search Item</a>
                 <a href="#" class="list-group-item">Link</a>
                 <a href="#" class="list-group-item">Link</a>
@@ -137,13 +147,14 @@ $menu=false;
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js" ></script>  -->
 <script src="sources/js/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="sources/js/bootstrap.min.js"></script>
 <script src="sources/js/offcanvas.js"></script>
 <script src="sources/js/shopping/products.js"></script>
+<script src="sources/js/imagepicker/image-picker.js"></script>
 <script type="application/javascript">
     function show (elem) {
         elem.style.display="block";
@@ -155,6 +166,7 @@ $menu=false;
     $(document).ready(function (){
         $('[data-toggle="tooltip"]').tooltip({'placement': 'right'});
     });
+    $("select").imagepicker()//enable picker
 </script>
 
 </body>

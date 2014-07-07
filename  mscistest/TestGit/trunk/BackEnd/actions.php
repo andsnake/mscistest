@@ -38,16 +38,15 @@ function get_admin_page($path_info){
     }
     elseif($path_info=="add"){
         include 'pages/add.php';
-    }/*
+    }
+    elseif($path_info=="edit"){
+        include 'pages/edit.php';
+    }
     elseif($path_info=="logout"){
-        include 'FrontEnd/logout.php';
+        //include 'pages/edit.php';
+        unset($_SESSION['admin']);
+        header("location: index.php");
     }
-    elseif($path_info=="checkout"){
-        include 'FrontEnd/checkout.php';
-    }
-    elseif($path_info=="search"){
-        include 'FrontEnd/search.php';
-    }*/
     else{
         include 'pages/home.php';
     }
