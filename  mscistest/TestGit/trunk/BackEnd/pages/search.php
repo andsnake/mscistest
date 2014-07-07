@@ -13,24 +13,24 @@ if(isset($_GET['mode'])){
     //to do search handling
     if($_GET['mode']=="product"){
         if(isset($_GET['item'])){
-            $product=htmlspecialchars(strip_Characters($_GET['item']));
+            $product=(($_GET['item']));
            // $product=sacarXss($product);
-            $product=strip_tags(preg_replace("/[^[:alnum:][:punct:]]/","",htmlspecialchars($product)));
+            //$product=strip_tags(preg_replace("/[^[:alnum:][:punct:]]/","",htmlspecialchars($product)));
             $product=filter_var($product, FILTER_SANITIZE_STRING);
             $product=strip_Characters($product);
+            $product = preg_replace('/\s+/', '_', $product);
             //echo "in product";
         }
-        search($product, null);
+        search($product, null,null);
 
     }//return products that belong to a certain category
-    elseif($_GET['mode']=="category"){
-        if(isset($_GET['item']) && isset($_GET['cat']) ){
+    elseif($_GET['mode']=="SKU"){
+        if(isset($_GET['item']) ){
             $product=$_GET['item'];
-            $category=$_GET['cat'];
             $product=strip_Characters($product);
-            $category=strip_Characters($category);
+
         }
-        search($product,$category);
+        search(null,null,$product);
 
     }elseif($_GET['mode']=="mixed"){
 
@@ -38,21 +38,47 @@ if(isset($_GET['mode'])){
 }
 if(!isset($_GET['mode']) || !isset($_GET['item'])){
     echo'<form class="navbar-search navbar-form" method="get" action="index.php?action=search">
-                            <input class="form-control" placeholder="Search" name="item" type="text"><button>Search</button>
-                            <input hidden="hidden" name="action" value="search"/>
-                            <input hidden="hidden" name="mode" value="product"/>
+                            <input class="form-control" placeholder="Search" name="item" type="text">
+                            <!-- Select Basic -->
 
-                        </form>';
+                              <label class="control-label" for="mode">Search By</label>
+
+                                <select id="mode" name="mode" class="input-medium form-control">
+                                  <option value="product">Product Name</option>
+                                  <option value="SKU">Product SKU</option>
+                                </select>
+                                <button>Search</button>
+
+                            <input hidden="hidden" name="action" value="search"/>
+                           <!-- <input hidden="hidden" name="mode" value="product"/> -->
+
+                        </form>
+
+
+
+
+
+
+
+
+
+
+
+
+                        ';
 }
 
-function search($product, $category){
-    if($category == null)
+function search($product, $category,$SKU){
+    if($category == null && $SKU==null)
     {
         $url = 'http://'.HOST.'/'.ROOT.'/Core/RestServices/Product.php/search/'.$product."/0/";
     }
-    else
+    elseif($product!=null)
     {
         $url = 'http://'.HOST.'/'.ROOT.'/Core/RestServices/Product.php/search/'.$product."/".$category."/";
+    }
+    else{
+        $url = 'http://'.HOST.'/'.ROOT.'/Core/RestServices/Product.php/searchSKU/'.$SKU."/none";
     }
     $client = curl_init($url);
     curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
@@ -64,7 +90,7 @@ function search($product, $category){
         $xml = simplexml_load_string($response);
     }catch(Exception $e) {
         //echo $e->getMessage();
-    }
+    } //var_dump($url);
     $show=true;
     if(!isset($xml->product)){
         $product=htmlspecialchars(strip_Characters($_GET['item']));

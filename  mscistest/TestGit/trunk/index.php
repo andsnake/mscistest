@@ -116,7 +116,7 @@ session_start();
       <div class="row featurette">
           <div class="row"><div id="recommendations" ></div></div>
         <div class="col-md-7">
-          <h2 class="featurette-heading">?? ????? ??? ???????????? banner. <span class="text-muted">It will (not) blow your mind.</span></h2>
+          <h2 class="featurette-heading">Adverstiments. <span class="text-muted"></span></h2>
           <div class="centered">
         <!--layer for the banner rotator-->
 

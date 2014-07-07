@@ -10,11 +10,13 @@ if(isset($_GET['mode'])){
     //to do search handling
     if($_GET['mode']=="product"){
         if(isset($_GET['item'])){
-            $product=htmlspecialchars(strip_Characters($_GET['item']));
-            $product=sacarXss($product);
-            $product=strip_tags(preg_replace("/[^[:alnum:][:punct:]]/","",htmlspecialchars($product)));
+            //$product=htmlspecialchars(strip_Characters($_GET['item']));
+            $product=htmlspecialchars(($_GET['item']));
+            //$product=sacarXss($product);
+            //$product=strip_tags(preg_replace("/[^[:alnum:][:punct:]]/","",htmlspecialchars($product)));
             $product=filter_var($product, FILTER_SANITIZE_STRING);
             $product=strip_Characters($product);
+            $product = preg_replace('/\s+/', '_', $product);
             //echo "in product";
         }
         search($product, null);
@@ -35,19 +37,31 @@ if(isset($_GET['mode'])){
 }
 
 function search($product, $category){
+
     if($category == null)
     {
         $url = 'http://'.HOST.'/'.ROOT.'/Core/RestServices/Product.php/search/'.$product."/0/";
+
     }
     else
     {
-        $url = 'http://'.HOST.'/'.ROOT.'/Core/RestServices/Product.php/search/'.$product."/".$category."/";
+        $url = 'http://'.HOST.'/'.ROOT.'/Core/RestServices/Product.php/search/search/'.$product."/".$category."/";
+    }//var_dump($url);
+
+
+    $path = 'search/metal gear/0/';
+    if ($path != null) {
+        $path_params = explode("/", $path);
     }
+    /*var_dump($path_params);
+    var_dump($url);*/
+
     $client = curl_init($url);
     curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
     $response = curl_exec($client);
     curl_close($client);
     try{
+        //var_dump($response);
         //$response='<test>'.$response.'/<test>';
         //echo $response;
         $xml = simplexml_load_string($response);
@@ -56,9 +70,9 @@ function search($product, $category){
     }
     $show=true;
     if(!isset($xml->product)){
-        $product=htmlspecialchars(strip_Characters($_GET['item']));
-        $product=sacarXss($product);
-        $product=strip_tags(preg_replace("/[^[:alnum:][:punct:]]/","",htmlspecialchars($product)));
+        $product=($_GET['item']);
+        //$product=sacarXss($product);
+        //$product=strip_tags(preg_replace("/[^[:alnum:][:punct:]]/","",htmlspecialchars($product)));
         $product=filter_var($product, FILTER_SANITIZE_STRING);
         $product=strip_Characters($product);
         $show=false;

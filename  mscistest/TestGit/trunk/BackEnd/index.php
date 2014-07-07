@@ -35,6 +35,7 @@ $menu=false;
     <link rel="stylesheet" href="sources/js/imagepicker/image-picker.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="sources/js/bootstrapValidator.js"></script>
+    <script type="text/javascript" src="sources/js/jquery.form.min.js"></script>
 
     <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     <![endif]-->
@@ -42,6 +43,69 @@ $menu=false;
         .thumbnails li img{
             width: 150px;
         }
+        #upload-wrapper {
+            width: 50%;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 50px;
+            /*background: #3D91A2;*/
+            padding: 50px;
+            border-radius: 10px;
+        }
+        #upload-wrapper h3 {
+            padding: 0px 0px 10px 0px;
+            margin: 0px 0px 20px 0px;
+            margin-top: -30px;
+            border-bottom: 1px dotted #DDD;
+        }
+        #upload-wrapper input[type=file] {
+            padding: 6px;
+            background: #FFF;
+            border-radius: 5px;
+        }
+        #upload-wrapper #submit-btn {
+            border: none;
+            padding: 10px;
+            background: #61BAE4;
+            border-radius: 5px;
+            color: #FFF;
+        }
+        #output{
+            padding: 5px;
+            font-size: 12px;
+        }
+
+            /* prograss bar */
+        #progressbox {
+            border: 1px solid #CAF2FF;
+            padding: 1px;
+            position:relative;
+            width:400px;
+            border-radius: 3px;
+            margin: 10px;
+            display:none;
+            text-align:left;
+        }
+        #progressbar {
+            height:20px;
+            border-radius: 3px;
+            background-color: #CAF2FF;
+            width:1%;
+        }
+        #statustxt {
+            top:3px;
+            left:50%;
+            position:absolute;
+            display:inline-block;
+            color: #FFFFFF;
+        }
+
+
+
+
+
+
+
     </style>
 
 </head>
@@ -101,13 +165,8 @@ $menu=false;
                 <a href="#" class="list-group-item active">Options</a>
                 <a href="index.php?action=add" class="list-group-item">Add Item</a>
                 <a href="index.php?action=search" class="list-group-item">Search Item</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
+                <a href="index.php?action=images" class="list-group-item">Upload Images</a>
+                <a href="index.php?action=all" class="list-group-item">All Products</a>
             </div>
         </div><!--/span-->
         <!-- products menu end -->
@@ -166,7 +225,9 @@ $menu=false;
     $(document).ready(function (){
         $('[data-toggle="tooltip"]').tooltip({'placement': 'right'});
     });
+   <?php if(isset($_GET['action']) && ( $_GET['action']=="add" || $_GET['action']=="edit")) { ?>
     $("select").imagepicker()//enable picker
+    <?php }?>
 </script>
 
 </body>

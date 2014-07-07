@@ -47,6 +47,12 @@ function get_admin_page($path_info){
         unset($_SESSION['admin']);
         header("location: index.php");
     }
+    elseif($path_info=="images"){
+        include 'pages/images.php';
+    }
+    elseif($path_info=="all"){
+        include 'pages/all.php';
+    }
     else{
         include 'pages/home.php';
     }
