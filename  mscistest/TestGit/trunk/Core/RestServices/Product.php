@@ -42,7 +42,8 @@ function add_Product(){
             "price"=>$product->price,
             "stock"=>$product->stock,
             "category"=>array($product->category),
-            "name"=>$product->name
+            "name"=>$product->name,
+            "img"=>$product->img
         ];
         global $products;
         $result=$products->add_Product($details);
@@ -69,7 +70,8 @@ function edit_Product(){
             "price"=>$product->price,
             "stock"=>$product->stock,
             "category"=>$product->category,
-            "name"=>$product->name
+            "name"=>$product->name,
+            "img"=>$product->img
         ];
         global $products;
         $result=$products->edit_Product($details['SKU'],$details);
